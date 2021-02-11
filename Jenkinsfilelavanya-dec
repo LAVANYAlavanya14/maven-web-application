@@ -1,12 +1,17 @@
 pipeline
 {
     agent any
+    /*for running in the node
+    agent {
+    label 'node1'
+    }
+    */
     tools{
         maven 'maven3.6.3'
     }
-    triggers{
+  /*  triggers{
         pollSCM('* * * * *')
-    }
+    }*/
     options{
         timestamps()
         buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '4'))
