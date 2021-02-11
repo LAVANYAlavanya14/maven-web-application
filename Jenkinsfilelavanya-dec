@@ -1,0 +1,55 @@
+pipeline
+{
+    agent any
+    tools{
+        maven 'maven3.6.3'
+    }
+    triggers{
+        pollSCM('* * * * *')
+    }
+    options{
+        timestamps()
+        buildDiscarder(logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '', daysToKeepStr: '', numToKeepStr: '4'))
+        
+    }
+    stages
+    {
+        stage('Checkoutdata')
+        {
+            steps
+            {
+            git branch: 'development', credentialsId: 'bca4d123-67c8-4d68-9434-4f69194cdd55', url: 'https://github.com/LAVANYAlavanya14/maven-web-application.git'
+            }        
+        }
+        stage('Build')
+        {
+            steps
+            {
+                sh "mvn clean package"
+            }
+        }
+        stage('ExecuteReport')
+        {
+            steps
+            {
+                sh "mvn sonar:sonar"
+            }
+        }
+        stage('UploadartifactintoNexus')
+        {
+            steps
+            {
+                sh "mvn deploy"
+            }
+        }
+        stage('DeployintoTomcat')
+        {
+            steps
+            {
+                sshagent(['b19f5c69-b475-4568-93c8-b998a46c4f34']) {
+    sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@13.127.141.57:/opt/apache-tomcat-9.0.41/webapps/"
+}
+            }
+        }
+    }
+}
