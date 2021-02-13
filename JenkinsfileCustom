@@ -1,5 +1,5 @@
-node('nodes'){
- 
+//node('nodes'){
+ node{
   //echo "GitHub BranhName ${env.BRANCH_NAME}"
   //echo "Jenkins Job Number ${env.BUILD_NUMBER}"
   echo "Jenkins Node Name ${env.NODE_NAME}"
@@ -45,7 +45,7 @@ node('nodes'){
  }
  */
  
- stage('SendEmailNotification')
+/* stage('SendEmailNotification')
  {
  
  emailext body: '''Build is over
@@ -53,6 +53,6 @@ node('nodes'){
  Regards,
  Mithun Technologies,
  9980923226''', subject: 'Buid is over', to: 'devopstrainingblr@gmail.com'
- }
+ }*/
     
 }
