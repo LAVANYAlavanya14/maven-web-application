@@ -45,7 +45,7 @@ node('nodes'){
  }
  */
  
- stage('SendEmailNotification')
+ /*stage('SendEmailNotification')
  {
  
  emailext body: '''Build is over
@@ -53,6 +53,6 @@ node('nodes'){
  Regards,
  Mithun Technologies,
  9980923226''', subject: 'Buid is over', to: 'devopstrainingblr@gmail.com'
- }
+ }*/
     
 }
